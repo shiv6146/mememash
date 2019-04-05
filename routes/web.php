@@ -14,3 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/signup', function() {
+    return view('signup');
+});
+
+Route::middleware('auth')->get('/post', function() {
+    return view('post');
+})->name('post');
+Route::get('/leaderboard', 'MemeController@leaderboard')->name('leaderboard');
+Route::middleware('auth')->get('/mash', 'MemeController@mashup')->name('mash');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
