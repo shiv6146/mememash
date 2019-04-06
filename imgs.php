@@ -40,7 +40,8 @@ foreach ($geek_terms as $term) {
 
 $data = array("data" => $geek_data);
 $data_string = json_encode($data);
-$ch = curl_init('http://localhost/api/add_memes');
+// 'http://localhost/api/add_memes'
+$ch = curl_init('http://memesmash.herokuapp.com/api/add_memes');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

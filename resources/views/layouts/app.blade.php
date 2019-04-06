@@ -31,7 +31,7 @@
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg" style="background: #365c9a;">
             <div class="navbar-brand">
                 
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-2">Meme Mash</a></span>
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-2" href="/">Meme Mash</a></span>
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true" style="padding-right: 80px;">
@@ -53,7 +53,7 @@
                             <a class="nav-link link text-white dropdown-toggle display-4" data-toggle="dropdown-submenu" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <div class="dropdown-menu">
                                 <a class="text-white dropdown-item display-4" href="{{ route('post') }}">Post</a>
-                                <a class="nav-link link text-white display-4" href="{{ route('leaderboard') }}">Leaderboard</a>
+                                <a class="text-white dropdown-item display-4" href="{{ route('leaderboard') }}">Leaderboard</a>
                                 <a class="text-white dropdown-item display-4" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">Logout</a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Meme;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class MemeController extends Controller
@@ -66,7 +67,25 @@ class MemeController extends Controller
     }
 
     public function leaderboard(Request $request) {
-        return view('leaderboard');
+        $top_categories = DB::table('memes')
+                     ->select(DB::raw('avg(rating) as rating_avg, category'))
+                     ->groupBy('category')
+                     ->orderBy('rating_avg', 'desc')
+                     ->limit(3)
+                     ->get();
+        $memes = [];
+        foreach ($top_categories as $category) {
+            $m = Meme::where('category', $category->category)->orderBy('rating', 'desc')->limit(3)->get();
+            foreach ($m as $tmp) {
+                $tmp_info = pathinfo($tmp->url);
+                
+                $img = file_get_contents($tmp->url);
+                file_put_contents('/tmp//' . $tmp->id . '.' . $tmp_info["extension"], $img);
+                self::imgresize($tmp->id, $tmp_info["extension"]);
+            }
+            $memes[$category->category] = $m;
+        }
+        return view('leaderboard', ["memes" => $memes]);
     }
 
     /**
