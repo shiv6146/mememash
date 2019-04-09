@@ -1,0 +1,40 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=5432"
+      - "DB_HOST=database"
+
+  # The Web Server
+  web:
+    build:
+      context: ./
+      dockerfile: web.dockerfile
+    working_dir: /var/www
+    volumes_from:
+      - app
+    ports:
+      - "8080:8080"
+
+  # The Database
+  database:
+    image: postgres
+    volumes:
+      - dbdata:/var/lib/postgresql
+    environment:
+      - "DB_DATABASE=memedb"
+      - "DB_USERNAME=mememash"
+      - "DB_PASSWORD=mememash1234"
+    ports:
+        - "5432:5432"
+
+volumes:
+  dbdata:
